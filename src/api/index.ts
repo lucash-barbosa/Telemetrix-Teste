@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
+
 import { ProductCategoryType, ProductType } from '../global/types';
 
 axios.defaults.baseURL = 'http://200.169.68.106:9998';
@@ -16,25 +17,26 @@ export const getProducts = () => {
     }
   );
 
-  return { 
-    productsData: data, 
-    productsFetching: isFetching, 
-    productsError: isError 
+  return {
+    productsData: data,
+    productsFetching: isFetching,
+    productsError: isError,
   };
 };
-
 
 // ProductCategory by id
 
 export const getProductCategories = () => {
-  const { data } = useQuery<ProductCategoryType[]>('productCategory',
+  const { data } = useQuery<ProductCategoryType[]>(
+    'productCategory',
     async () => {
       const response = await axios.get('/api/ProductCategory');
 
       return response.data;
-    });
+    }
+  );
 
   return {
-    productCategoriesData: data
+    productCategoriesData: data,
   };
 };

@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import { Container } from './global/globalStyles';
 
+import { Container } from './global/globalStyles';
 // import Product from './pages/Product';
 import Products from './pages/Products';
 
