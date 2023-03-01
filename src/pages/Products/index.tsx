@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+
 import { getProductCategories, getProducts } from '../../api';
 import ProductCard from '../../components/ProductCard';
 import { Title, Wrapper } from '../../global/globalStyles';
@@ -24,22 +25,24 @@ const Products = () => {
 
       <ul>
         {productsData?.map((product) => {
+          const productCategory = FindProductCategory(product.categoryId);
+
           const productName =
             product.name[0].toUpperCase() + product.name.substring(1);
+
           const productDescription =
             product.description[0].toUpperCase() +
             product.description.substring(1);
 
-          const productCategory = FindProductCategory(product.categoryId);
-
           return (
-            <Link to={`products/${product.id}`} key={product.id}>
+            <li key={product.id}>
               <ProductCard
                 name={productName}
                 description={productDescription}
                 productCategory={productCategory?.name}
+                link={`products/${product.id}`}
               />
-            </Link>
+            </li>
           );
         })}
       </ul>

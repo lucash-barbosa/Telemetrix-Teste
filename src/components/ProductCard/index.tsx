@@ -5,11 +5,12 @@ type Props = {
   name: string;
   description: string;
   productCategory?: string;
+  link: string;
 };
 
-const ProductCard = ({ name, description, productCategory }: Props) => {
+const ProductCard = ({ name, description, productCategory, link }: Props) => {
   return (
-    <Card>
+    <Card to={link}>
       <CardTitle>{name[0].toUpperCase() + name.substring(1)}</CardTitle>
       <CardText>
         {description[0].toUpperCase() + description.substring(1)}

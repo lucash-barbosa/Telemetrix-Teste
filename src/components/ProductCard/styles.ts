@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Card = styled.li`
+export const Card = styled(Link)`
   display: grid;
   align-items: center;
   row-gap: 5px;
