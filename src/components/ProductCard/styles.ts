@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Card = styled(Link)`
+import editIcon from '../../assets/icons/edit.svg';
+import GarbageIcon from '../../assets/icons/garbage.svg';
+
+export const Card = styled.div`
   display: grid;
   align-items: center;
-  row-gap: 5px;
+  row-gap: 10px;
 
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1.1fr 1fr 0.1fr 0.1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
-    'card-title card-category edit-card'
-    'card-description card-category delete-card';
+    'card-title card-category edit-card delete-card'
+    'card-description card-category edit-card delete-card';
 
   margin: 40px 20px;
   padding: 35px 40px 30px 40px;
@@ -31,4 +34,23 @@ export const CardText = styled.p`
   color: var(--bs-gray-700);
   font-size: 14px;
   font-weight: 600;
+`;
+
+export const EditButton = styled.button`
+  height: 25px;
+  width: 25px;
+  border: none;
+  justify-self: center;
+  align-self: center;
+  grid-area: edit-card;
+
+  background-color: transparent;
+  background-image: url(${editIcon});
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+export const DeleteButton = styled(EditButton)`
+  grid-area: delete-card;
+  background-image: url(${GarbageIcon});
 `;

@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
-
-import { getProductCategories, getProducts } from '../../api';
+import { getProductCategories } from '../../api/ProductCategories';
+import { getProducts } from '../../api/Products';
 import ProductCard from '../../components/ProductCard';
 import { Title, Wrapper } from '../../global/globalStyles';
 
@@ -8,7 +7,7 @@ const Products = () => {
   const { productsData, productsFetching, productsError } = getProducts();
   const { productCategoriesData } = getProductCategories();
 
-  const FindProductCategory = (productCategoryId: number) => {
+  const findProductCategory = (productCategoryId: number) => {
     const productCategory = productCategoriesData?.find((category) => {
       return category.id === productCategoryId;
     });
@@ -25,7 +24,7 @@ const Products = () => {
 
       <ul>
         {productsData?.map((product) => {
-          const productCategory = FindProductCategory(product.categoryId);
+          const productCategory = findProductCategory(product.categoryId);
 
           const productName =
             product.name[0].toUpperCase() + product.name.substring(1);
@@ -37,6 +36,7 @@ const Products = () => {
           return (
             <li key={product.id}>
               <ProductCard
+                id={product.id}
                 name={productName}
                 description={productDescription}
                 productCategory={productCategory?.name}
