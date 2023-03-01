@@ -7,16 +7,9 @@ type Props = {
   name: string;
   description: string;
   productCategory?: string;
-  link: string;
 };
 
-const ProductCard = ({
-  id,
-  name,
-  description,
-  productCategory,
-  link,
-}: Props) => {
+const ProductCard = ({ id, name, description, productCategory }: Props) => {
   const deleteProductMutation = DeleteProduct();
 
   const handleDelete = () => {

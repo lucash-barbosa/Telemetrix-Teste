@@ -40,7 +40,6 @@ const Products = () => {
                 name={productName}
                 description={productDescription}
                 productCategory={productCategory?.name}
-                link={`products/${product.id}`}
               />
             </li>
           );
