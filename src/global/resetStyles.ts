@@ -20,6 +20,7 @@ export const resetStyles = `
     vertical-align: baseline;
     text-decoration: none;
     color: #000;
+    box-sizing: border-box;
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure, 

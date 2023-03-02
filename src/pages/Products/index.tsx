@@ -1,11 +1,17 @@
+import { useState } from 'react';
+
 import { getProductCategories } from '../../api/ProductCategories';
 import { getProducts } from '../../api/Products';
+import AddProductCard from '../../components/AddProductCard';
 import ProductCard from '../../components/ProductCard';
 import { Title, Wrapper } from '../../global/globalStyles';
+import { AddProduct, ArrowDown } from './styles';
 
 const Products = () => {
   const { productsData, productsFetching, productsError } = getProducts();
   const { productCategoriesData } = getProductCategories();
+
+  const [showAddProduct, setShowAddProduct] = useState(false);
 
   const findProductCategory = (productCategoryId: number) => {
     const productCategory = productCategoriesData?.find((category) => {
@@ -19,10 +25,16 @@ const Products = () => {
     <Wrapper>
       <Title>Produtos</Title>
 
+      <AddProduct onClick={() => setShowAddProduct(!showAddProduct)}>
+        Adicionar novo produto <ArrowDown rotateArrow={showAddProduct} />
+      </AddProduct>
+
       {productsFetching && <p>Carregando...</p>}
       {productsError && <p>Ocorreu um erro ao carregar os dados</p>}
 
       <ul>
+        {showAddProduct && <AddProductCard />}
+
         {productsData?.map((product) => {
           const productCategory = findProductCategory(product.categoryId);
 

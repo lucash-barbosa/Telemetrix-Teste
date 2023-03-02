@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-
 export const CategoryText = styled.p`
   grid-area: card-category;
+  grid-column-start: 1;
+  justify-self: center;
   width: fit-content;
-  color: ${randomColor};
+  color: ${(props) => props.color};
   font-size: 18px;
   font-weight: 700;
   background-color: transparent;
   padding: 0.5em 1em;
-  border: solid ${randomColor} 2px;
+  border: solid ${(props) => props.color} 2px;
   border-radius: 6px;
 `;

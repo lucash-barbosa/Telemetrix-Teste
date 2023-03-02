@@ -32,3 +32,51 @@ export const DeleteProduct = () => {
     },
   });
 };
+
+// Put Product
+
+type ProductData = {
+  name: string;
+  description: string;
+};
+
+type EditProductProps = {
+  id: number;
+  data: ProductData;
+};
+
+export const EditProduct = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async ({ id, data }: EditProductProps) => {
+      const response = await axios.put(`/api/Product/${id}`, data);
+      return response.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('getProducts');
+      },
+    }
+  );
+};
+
+// Post Product
+
+type AddProductProps = {
+  data: ProductData;
+};
+
+export const AddProduct = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async ({ data }: AddProductProps) => {
+      const response = await axios.post('/api/Product', data);
+      return response.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('getProducts');
+      },
+    }
+  );
+};
