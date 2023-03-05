@@ -6,8 +6,14 @@ export const Wrapper = styled.div`
   background-color: #fff;
   border-radius: 6px;
   box-shadow: #00000015 2px 5px 20px;
-  display: grid;
   padding: 40px;
 
   ${(props: StylesType) => props.styles}
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    margin: 40px 20px;
+  }
 `;

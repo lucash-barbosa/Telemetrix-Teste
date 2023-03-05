@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 export type ChildrenType = {
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export type NewProductType = {
@@ -16,8 +16,10 @@ export type NewProductCategoryType = {
 };
 
 export type StylesType = {
-  styles?: Record<string, string>;
   hover?: Record<string, string>;
+  styles?: Record<string, string>;
+  mq?: Record<string, string>;
+  mqWidth?: number;
 };
 
 export interface ProductType extends NewProductType {
