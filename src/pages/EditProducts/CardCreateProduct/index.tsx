@@ -14,12 +14,14 @@ type Props = {
 
 const CardCreateProduct = ({ hideCardCreateProduct }: Props) => {
   const cardStyles = {
-    gridTemplateColumns: '1.1fr 1fr 0.1fr 0.1fr',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr 0.3fr',
     gridTemplateRows: '1fr 1fr',
     gridTemplateAreas:
-      '\'card-title card-category confirm-card\' \'card-description card-category confirm-card\'',
+      '\'card-title card-category gap buttons-card\' \'card-description card-category gap buttons-card\'',
     margin: '40px 20px',
-    rowGap: '10px',
+    gap: '10px 20px',
+    textAlign: 'left',
   };
 
   const [category, setCategory] = useState<ProductCategoryType>();
@@ -62,7 +64,7 @@ const CardCreateProduct = ({ hideCardCreateProduct }: Props) => {
       <IconButton
         icon={confirmIcon}
         onClick={handleCreate}
-        styles={{ gridArea: 'confirm-card', width: '35px', height: '35px' }}
+        styles={{ gridArea: 'buttons-card', width: '35px', height: '35px' }}
         hover={{ width: '40px', height: '40px' }}
       />
     </Card>

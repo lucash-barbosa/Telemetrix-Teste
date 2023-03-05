@@ -18,7 +18,7 @@ export const Input = styled.input`
 
 export const StyledDropdown = styled(Dropdown)`
   grid-area: card-category;
-  grid-column-start: 1;
+  text-align: center;
 `;
 
 export const StyledDropdownButton = styled(Dropdown.Toggle)`
