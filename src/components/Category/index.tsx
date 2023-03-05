@@ -1,22 +1,30 @@
+import { StylesType } from '@/global/types';
+import generateRandomColor from '@/utils/generateRandomColor';
 import { useMemo } from 'react';
 
 import { CategoryText } from './styles';
 
-type Props = {
-  text: string;
-};
+interface Props extends StylesType {
+  text?: string;
+}
 
-const colorMap: { [key: string]: string } = {};
+const colorMap: Record<string, string> = {};
 
-const Category = ({ text }: Props) => {
+const Category = ({ text, styles }: Props) => {
   const color = useMemo(() => {
-    if (!colorMap[text]) {
-      colorMap[text] = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    if (text) {
+      if (text && !colorMap[text]) {
+        colorMap[text] = generateRandomColor();
+      }
+      return colorMap[text];
     }
-    return colorMap[text];
   }, [text]);
 
-  return <CategoryText color={color}>{text}</CategoryText>;
+  return text ? (
+    <CategoryText styles={styles} color={color}>
+      {text}
+    </CategoryText>
+  ) : null;
 };
 
 export default Category;

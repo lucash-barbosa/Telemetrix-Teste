@@ -45,4 +45,10 @@ export const resetStyles = `
     border-collapse: collapse;
     border-spacing: 0;
   }
+  input {
+    border: none;
+    &:focus {
+      outline: none;
+    }
+  }
 `;

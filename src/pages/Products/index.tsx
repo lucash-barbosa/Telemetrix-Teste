@@ -1,57 +1,64 @@
+import { Title, Wrapper } from '@/global/globalStyles';
+import useDeleteProduct from '@/hooks/product/useDeleteProduct';
+import useGetProducts from '@/hooks/product/useGetProducts';
+import firstLetterToUppercase from '@/utils/firstLetterToUpperCase';
 import { useState } from 'react';
 
-import { getProductCategories } from '../../api/ProductCategories';
-import { getProducts } from '../../api/Products';
-import AddProductCard from '../../components/AddProductCard';
-import ProductCard from '../../components/ProductCard';
-import { Title, Wrapper } from '../../global/globalStyles';
-import { AddProduct, ArrowDown } from './styles';
+import CardCreateProduct from './CardCreateProduct';
+import CardProduct from './CardProduct';
+import { CreateProduct, ArrowDown } from './styles';
 
 const Products = () => {
-  const { productsData, productsFetching, productsError } = getProducts();
-  const { productCategoriesData } = getProductCategories();
+  const [showCardCreateProduct, setShowCardCreateProduct] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
-  const [showAddProduct, setShowAddProduct] = useState(false);
+  const {
+    data: products,
+    isFetching: productsFetching,
+    isError: productsError,
+  } = useGetProducts();
+  const deleteProduct = useDeleteProduct();
 
-  const findProductCategory = (productCategoryId: number) => {
-    const productCategory = productCategoriesData?.find((category) => {
-      return category.id === productCategoryId;
-    });
+  if (productsFetching) {
+    return <p>Carregando...</p>;
+  }
 
-    return productCategory;
-  };
+  if (productsError) {
+    return <p>Ocorreu um erro ao carregar os dados</p>;
+  }
 
   return (
     <Wrapper>
       <Title>Produtos</Title>
 
-      <AddProduct onClick={() => setShowAddProduct(!showAddProduct)}>
-        Adicionar novo produto <ArrowDown rotateArrow={showAddProduct} />
-      </AddProduct>
+      <CreateProduct
+        onClick={() => setShowCardCreateProduct(!showCardCreateProduct)}
+      >
+        Adicionar novo produto <ArrowDown rotateArrow={showCardCreateProduct} />
+      </CreateProduct>
 
-      {productsFetching && <p>Carregando...</p>}
-      {productsError && <p>Ocorreu um erro ao carregar os dados</p>}
+      {showCardCreateProduct && (
+        <CardCreateProduct
+          hideCardCreateProduct={() => setShowCardCreateProduct(false)}
+        />
+      )}
 
       <ul>
-        {showAddProduct && <AddProductCard />}
-
-        {productsData?.map((product) => {
-          const productCategory = findProductCategory(product.categoryId);
-
-          const productName =
-            product.name[0].toUpperCase() + product.name.substring(1);
-
-          const productDescription =
-            product.description[0].toUpperCase() +
-            product.description.substring(1);
+        {products?.map((product) => {
+          const productName = firstLetterToUppercase(product.name);
+          const productDescription = firstLetterToUppercase(
+            product.description
+          );
 
           return (
             <li key={product.id}>
-              <ProductCard
-                id={product.id}
-                name={productName}
-                description={productDescription}
-                productCategory={productCategory?.name}
+              <CardProduct
+                productId={product.id}
+                productCategoryId={product.categoryId}
+                handleEdit={() => setEditMode(!editMode)}
+                handleDelete={() => deleteProduct(product.id)}
+                text={productDescription}
+                title={productName}
               />
             </li>
           );

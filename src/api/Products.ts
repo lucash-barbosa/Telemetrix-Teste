@@ -1,82 +1,65 @@
+import { NewProductType, ProductType } from '@/global/types';
 import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import { ProductType } from '../global/types';
-
 axios.defaults.baseURL = 'http://200.169.68.106:9998';
 
-// Get Products
-export const getProducts = () => {
-  const { data, isFetching, isError } = useQuery<ProductType[]>(
-    'getProducts',
-    async () => {
-      const response = await axios.get('/api/Product');
+// Get products
+export const GetProducts = () => {
+  return useQuery<ProductType[]>('products', async () => {
+    const response = await axios.get('/api/Product');
 
-      return response.data;
-    }
-  );
-
-  return {
-    productsData: data,
-    productsFetching: isFetching,
-    productsError: isError,
-  };
-};
-
-// Delete Product
-export const DeleteProduct = () => {
-  const queryClient = useQueryClient();
-  return useMutation((id: number) => axios.delete(`/api/Product/${id}`), {
-    onSuccess: () => {
-      queryClient.invalidateQueries('getProducts');
-    },
+    return response.data;
   });
 };
 
-// Put Product
+// Post product
+export const CreateProduct = () => {
+  const queryClient = useQueryClient();
 
-type ProductData = {
-  name: string;
-  description: string;
+  return useMutation(
+    async ({ name, description, categoryId }: NewProductType) => {
+      await axios.post('/api/Product', { name, description, categoryId });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('products');
+      },
+      onError: () => {
+        alert('Ocorreu um erro ao adicionar produto');
+      },
+    }
+  );
 };
 
-type EditProductProps = {
-  id: number;
-  data: ProductData;
-};
-
+// Put product
 export const EditProduct = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({ id, data }: EditProductProps) => {
-      const response = await axios.put(`/api/Product/${id}`, data);
-      return response.data;
+    async ({ id, name, description, categoryId }: ProductType) => {
+      await axios.put(`/api/Product/${id}`, { name, description, categoryId });
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('getProducts');
+        queryClient.invalidateQueries('products');
+      },
+      onError: () => {
+        alert('Ocorreu um erro ao editar produto');
       },
     }
   );
 };
 
-// Post Product
-
-type AddProductProps = {
-  data: ProductData;
-};
-
-export const AddProduct = () => {
+// Delete product
+export const DeleteProduct = () => {
   const queryClient = useQueryClient();
-  return useMutation(
-    async ({ data }: AddProductProps) => {
-      const response = await axios.post('/api/Product', data);
-      return response.data;
+
+  return useMutation((id: number) => axios.delete(`/api/Product/${id}`), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('products');
     },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('getProducts');
-      },
-    }
-  );
+    onError: () => {
+      alert('Ocorreu um erro ao deletar produto');
+    },
+  });
 };

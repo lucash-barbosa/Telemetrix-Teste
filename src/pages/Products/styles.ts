@@ -1,12 +1,11 @@
+import ADIcon from '@/assets/icons/arrow-down.svg';
 import styled from 'styled-components';
-
-import ADIcon from '../../assets/icons/arrow-down.svg';
 
 type Props = {
   rotateArrow: boolean;
 };
 
-export const AddProduct = styled.p`
+export const CreateProduct = styled.p`
   width: fit-content;
   text-align: left;
   font-size: 20px;
