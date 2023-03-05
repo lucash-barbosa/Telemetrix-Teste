@@ -17,9 +17,7 @@ export const CreateProductCategory = () => {
 
   return useMutation(
     async ({ name, description }: NewProductCategoryType) => {
-      const data = { name, description };
-
-      await axios.post('/api/ProductCategory', data);
+      await axios.post('/api/ProductCategory', { name, description });
     },
     {
       onSuccess: () => {
@@ -27,6 +25,25 @@ export const CreateProductCategory = () => {
       },
       onError: () => {
         alert('Ocorreu um erro ao criar categoria');
+      },
+    }
+  );
+};
+
+// Put product category
+export const EditProductCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async ({ id, name, description }: ProductCategoryType) => {
+      await axios.put(`/api/ProductCategory/${id}`, { name, description });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('productCategory');
+      },
+      onError: () => {
+        alert('Ocorreu um erro ao editar categoria');
       },
     }
   );

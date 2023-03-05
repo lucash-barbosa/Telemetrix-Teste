@@ -67,6 +67,7 @@ const CardEditProduct = ({
         icon={confirmIcon}
         onClick={handleEdit}
         styles={{ gridArea: 'confirm-card', width: '35px', height: '35px' }}
+        hover={{ width: '40px', height: '40px' }}
       />
     </Card>
   );

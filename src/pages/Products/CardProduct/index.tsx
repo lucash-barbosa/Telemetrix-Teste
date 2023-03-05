@@ -63,11 +63,13 @@ const CardProduct = ({
         icon={editIcon}
         onClick={() => setEditMode(true)}
         styles={{ gridArea: 'edit-card' }}
+        hover={{ width: '30px', height: '30px' }}
       />
       <IconButton
         icon={deleteIcon}
         onClick={handleDelete}
         styles={{ gridArea: 'delete-card' }}
+        hover={{ width: '30px', height: '30px' }}
       />
     </Card>
   );

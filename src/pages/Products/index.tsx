@@ -19,17 +19,12 @@ const Products = () => {
   } = useGetProducts();
   const deleteProduct = useDeleteProduct();
 
-  if (productsFetching) {
-    return <p>Carregando...</p>;
-  }
-
-  if (productsError) {
-    return <p>Ocorreu um erro ao carregar os dados</p>;
-  }
-
   return (
     <Wrapper>
       <Title>Produtos</Title>
+
+      {productsFetching && <p>Carregando...</p>}
+      {productsError && <p>Ocorreu um erro ao carregar os dados</p>}
 
       <CreateProduct
         onClick={() => setShowCardCreateProduct(!showCardCreateProduct)}

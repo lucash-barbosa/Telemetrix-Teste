@@ -1,4 +1,5 @@
 import { StylesType } from '@/global/types';
+import firstLetterToUppercase from '@/utils/firstLetterToUpperCase';
 import generateRandomColor from '@/utils/generateRandomColor';
 import { useMemo } from 'react';
 
@@ -22,7 +23,7 @@ const Category = ({ text, styles }: Props) => {
 
   return text ? (
     <CategoryText styles={styles} color={color}>
-      {text}
+      {firstLetterToUppercase(text)}
     </CategoryText>
   ) : null;
 };

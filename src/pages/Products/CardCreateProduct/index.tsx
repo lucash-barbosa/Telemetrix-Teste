@@ -63,6 +63,7 @@ const CardCreateProduct = ({ hideCardCreateProduct }: Props) => {
         icon={confirmIcon}
         onClick={handleCreate}
         styles={{ gridArea: 'confirm-card', width: '35px', height: '35px' }}
+        hover={{ width: '40px', height: '40px' }}
       />
     </Card>
   );
