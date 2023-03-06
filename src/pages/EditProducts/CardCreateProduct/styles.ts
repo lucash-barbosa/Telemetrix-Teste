@@ -5,6 +5,10 @@ export const CardTextInput = styled.input`
   font-size: 14px;
   font-weight: 600;
   grid-area: card-description;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 export const CardTitleInput = styled.input`
@@ -12,4 +16,8 @@ export const CardTitleInput = styled.input`
   font-size: 26px;
   font-weight: 800;
   grid-area: card-title;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 `;

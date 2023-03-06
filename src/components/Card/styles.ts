@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
-    row-gap: 30px;
     margin: 40px 20px;
+    row-gap: 30px;
   }
 `;
