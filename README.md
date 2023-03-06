@@ -8,4 +8,4 @@
 5. Após o processo terminar digite "cd Telemetrix-Teste"
 6. Rode "npm install"
 7. Com a instalação terminada digite "npm run dev" <br />
-Ou, para verificar o código, digite "code ." Para abrir com seu vs code
+Ou, para verificar o código, digite "code ." para abrir com seu vs code
