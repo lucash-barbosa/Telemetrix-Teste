@@ -1,9 +1,10 @@
 import Carousel from '@/components/Carousel';
+import { CategoryContext } from '@/contexts/CategoryContext';
 import { Title, Wrapper } from '@/global/globalStyles';
 import useGetProducts from '@/hooks/product/useGetProducts';
 import useGetProductCategories from '@/hooks/productCategory/useGetProductCategories';
 import firstLetterToUppercase from '@/utils/firstLetterToUpperCase';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import CardProduct from './CardProduct';
 import {
@@ -23,8 +24,14 @@ const Products = () => {
   const [filterValue, setFilterValue] = useState('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
+  const { selectedCategory } = useContext(CategoryContext);
+
   const filteredProducts = products
-    ?.filter((product) =>
+    ?.filter(
+      (product) =>
+        selectedCategory === null || product.categoryId === selectedCategory
+    )
+    .filter((product) =>
       product.name.toLowerCase().includes(filterValue.toLowerCase())
     )
     .sort((a, b) => {
@@ -37,12 +44,6 @@ const Products = () => {
   };
 
   const getProductCategories = useGetProductCategories();
-
-  const categories = getProductCategories
-    ?.map((category) => category.name)
-    .sort((a, b) => {
-      return a.localeCompare(b);
-    });
 
   return (
     <Wrapper>
@@ -65,7 +66,7 @@ const Products = () => {
       {productsFetching && <p>Carregando...</p>}
       {productsError && <p>Ocorreu um erro ao carregar os dados</p>}
 
-      {categories && <Carousel items={categories} />}
+      {getProductCategories && <Carousel items={getProductCategories} />}
 
       <ul>
         {filteredProducts?.map((product) => {

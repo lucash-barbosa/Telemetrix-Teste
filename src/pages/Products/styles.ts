@@ -12,6 +12,7 @@ export const ProductsWrapper = styled.li`
 `;
 
 export const FilterButton = styled.button`
+  width: fit-content;
   color: var(--bs-blue);
   font-size: 20px;
   font-weight: 700;
@@ -23,6 +24,7 @@ export const FilterButton = styled.button`
 `;
 
 export const FilterInput = styled.input`
+  max-width: 80vw;
   background: url(${magnifierIcon});
   background-repeat: no-repeat;
   background-size: 25px;
@@ -30,13 +32,19 @@ export const FilterInput = styled.input`
   border: solid 3px var(--bs-gray-500);
   border-radius: 20px;
   left: 0;
-  margin-bottom: 50px;
   padding: 5px 5px 5px 50px;
 `;
 
 export const FiltersWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 50px 0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+  }
 `;
 
 export const ArrowDown = styled.i`

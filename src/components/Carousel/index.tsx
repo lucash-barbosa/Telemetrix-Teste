@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { CategoryContext } from '@/contexts/CategoryContext';
+import { ProductCategoryType } from '@/global/types';
+import { useContext, useState } from 'react';
 
 import Category from '../Category';
 import { Container, CarouselItem, Wrapper } from './styles';
 
 type Props = {
-  items: string[];
+  items: ProductCategoryType[];
 };
 
 const Carousel = ({ items }: Props) => {
+  const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
+
+  const handleClick = (id: number) => {
+    setSelectedCategory(id === selectedCategory ? null : id);
+  };
+
   const [dragStartX, setDragStartX] = useState<number | null>(null);
   const [dragging, setDragging] = useState(false);
   const [translateX, setTranslateX] = useState(0);
@@ -43,8 +51,13 @@ const Carousel = ({ items }: Props) => {
         style={{ transform: `translateX(${translateX}px)` }}
       >
         {items.map((item) => (
-          <CarouselItem key={item}>
-            <Category text={item} />
+          <CarouselItem
+            key={item.id}
+            onClick={() => {
+              handleClick(item.id);
+            }}
+          >
+            <Category text={item.name} />
           </CarouselItem>
         ))}
       </Wrapper>

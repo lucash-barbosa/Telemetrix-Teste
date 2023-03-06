@@ -24,6 +24,7 @@ export const CreateProduct = styled.p`
 `;
 
 export const FilterInput = styled.input`
+  max-width: 80vw;
   background: url(${magnifierIcon});
   background-repeat: no-repeat;
   background-size: 25px;
@@ -31,11 +32,11 @@ export const FilterInput = styled.input`
   border: solid 3px var(--bs-gray-500);
   border-radius: 20px;
   left: 0;
-  margin-bottom: 50px;
   padding: 5px 5px 5px 50px;
 `;
 
 export const FiltersWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 50px 0;
 `;
