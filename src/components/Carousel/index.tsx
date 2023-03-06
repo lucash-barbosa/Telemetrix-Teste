@@ -2,8 +2,7 @@ import { CategoryContext } from '@/contexts/CategoryContext';
 import { ProductCategoryType } from '@/global/types';
 import { useContext, useState } from 'react';
 
-import Category from '../Category';
-import { Container, CarouselItem, Wrapper } from './styles';
+import { Container, CarouselItem, Wrapper, Item } from './styles';
 
 type Props = {
   items: ProductCategoryType[];
@@ -57,7 +56,7 @@ const Carousel = ({ items }: Props) => {
               handleClick(item.id);
             }}
           >
-            <Category text={item.name} />
+            <Item>{item.name}</Item>
           </CarouselItem>
         ))}
       </Wrapper>
