@@ -6,7 +6,12 @@ import { useState } from 'react';
 
 import CardCreateProduct from './CardCreateProduct';
 import CardProduct from './CardProduct';
-import { CreateProduct, ArrowDown } from './styles';
+import {
+  CreateProduct,
+  ArrowDown,
+  FiltersWrapper,
+  FilterInput,
+} from './styles';
 
 const EditProducts = () => {
   const [showCardCreateProduct, setShowCardCreateProduct] = useState(false);
@@ -17,6 +22,12 @@ const EditProducts = () => {
     isFetching: productsFetching,
     isError: productsError,
   } = useGetProducts();
+  const [filterValue, setFilterValue] = useState('');
+
+  const filteredProducts = products?.filter((product) =>
+    product.name.toLowerCase().includes(filterValue.toLowerCase())
+  );
+
   const deleteProduct = useDeleteProduct();
 
   return (
@@ -25,6 +36,16 @@ const EditProducts = () => {
 
       {productsFetching && <p>Carregando...</p>}
       {productsError && <p>Ocorreu um erro ao carregar os dados</p>}
+
+      <FiltersWrapper>
+        <FilterInput
+          id="productFilter"
+          type="text"
+          placeholder="Pesquisar"
+          value={filterValue}
+          onChange={(event) => setFilterValue(event.target.value)}
+        />
+      </FiltersWrapper>
 
       <CreateProduct
         onClick={() => setShowCardCreateProduct(!showCardCreateProduct)}
@@ -39,7 +60,7 @@ const EditProducts = () => {
       )}
 
       <ul>
-        {products?.map((product) => {
+        {filteredProducts?.map((product) => {
           const productName = firstLetterToUppercase(product.name);
           const productDescription = firstLetterToUppercase(
             product.description
