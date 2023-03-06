@@ -32,7 +32,7 @@ const EditProducts = () => {
 
   return (
     <Wrapper>
-      <Title>Produtos</Title>
+      <Title>Editar Produtos</Title>
 
       {productsFetching && <p>Carregando...</p>}
       {productsError && <p>Ocorreu um erro ao carregar os dados</p>}

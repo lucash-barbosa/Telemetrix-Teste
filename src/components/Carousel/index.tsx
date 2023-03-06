@@ -1,5 +1,6 @@
 import { CategoryContext } from '@/contexts/CategoryContext';
 import { ProductCategoryType } from '@/global/types';
+import firstLetterToUppercase from '@/utils/firstLetterToUpperCase';
 import { useContext, useState } from 'react';
 
 import { Container, CarouselItem, Wrapper, Item } from './styles';
@@ -49,16 +50,18 @@ const Carousel = ({ items }: Props) => {
         onMouseMove={handleDragMove}
         style={{ transform: `translateX(${translateX}px)` }}
       >
-        {items.map((item) => (
-          <CarouselItem
-            key={item.id}
-            onClick={() => {
-              handleClick(item.id);
-            }}
-          >
-            <Item>{item.name}</Item>
-          </CarouselItem>
-        ))}
+        {items
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((item) => (
+            <CarouselItem
+              key={item.id}
+              onClick={() => {
+                handleClick(item.id);
+              }}
+            >
+              <Item>{firstLetterToUppercase(item.name)}</Item>
+            </CarouselItem>
+          ))}
       </Wrapper>
     </Container>
   );
